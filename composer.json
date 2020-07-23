@@ -1,5 +1,5 @@
 {
-    "name": "kiwfy/jwt-manager-php",
+    "name": "scaffoldeducation/jwt-manager-php",
     "description": "PHP library to manage JWT authentication",
     "version": "1.0.0",
     "type": "library",
