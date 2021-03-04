@@ -52,19 +52,22 @@ class JwtManager
      * mount and get the payload part
      * @param string $audience
      * @param string $subject
+     * @param array $payload
      * @return string
      */
     private function getPayload(
         string $audience,
-        string $subject
+        string $subject,
+        array $payload
     ): string {
-        $payload = [
+        $payload = array_merge($payload, [
             'aud' => $audience,
             'exp' => time() + $this->expire,
             'iat' => time(),
             'iss' => $this->context,
             'sub' => $subject,
-        ];
+        ]);
+
         $payload = json_encode($payload);
         return $this->base64UrlEncode($payload);
     }
@@ -117,14 +120,16 @@ class JwtManager
      * generate token
      * @param string $audience
      * @param string $subject
+     * @param array $payload
      * @return string
      */
     public function generate(
         string $audience,
-        string $subject = ''
+        string $subject = '',
+        array $payload = []
     ): string {
         $header = $this->getHeader();
-        $payload = $this->getPayload($audience, $subject);
+        $payload = $this->getPayload($audience, $subject, $payload);
         $signature = $this->getSignature($header, $payload);
 
         return $header . '.' . $payload . '.' . $signature;
