@@ -1,6 +1,7 @@
 # Jwt Manager PHP
 
 [![Latest Version](https://img.shields.io/github/v/release/kiwfy/jwt-manager-php.svg?style=flat-square)](https://github.com/kiwfy/jwt-manager-php/releases)
+[![codecov](https://codecov.io/gh/kiwfy/jwt-manager-php/branch/master/graph/badge.svg)](https://codecov.io/gh/kiwfy/jwt-manager-php)
 [![Build Status](https://img.shields.io/github/workflow/status/kiwfy/jwt-manager-php/CI?label=ci%20build&style=flat-square)](https://github.com/kiwfy/jwt-manager-php/actions?query=workflow%3ACI)
 [![Total Downloads](https://img.shields.io/packagist/dt/kiwfy/jwt-manager-php.svg?style=flat-square)](https://packagist.org/packages/kiwfy/jwt-manager-php)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)
