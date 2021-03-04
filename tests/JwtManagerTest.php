@@ -272,6 +272,23 @@ class JwtManagerTest extends TestCase
         $this->assertFalse($need);
     }
 
+    public function testTokenWithPayload()
+    {
+        $jwtManger = new JwtManager(
+            $this->appSecret,
+            $this->context,
+        );
+
+        $payload = [
+            'userId' => 12856
+        ];
+
+        $token = $jwtManger->generate('token', '68162dc1-a392-491f-9d46-639f0e0f179d', $payload);
+        $tokenPayload = $jwtManger->decodePayload($token);
+
+        $this->assertEquals(12856, $tokenPayload['userId']);
+    }
+
     protected function tearDown(): void
     {
         //
