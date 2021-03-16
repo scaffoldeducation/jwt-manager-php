@@ -1,3 +1,4 @@
+
 # Jwt Manager PHP
 
 [![Latest Version](https://img.shields.io/github/v/release/kiwfy/jwt-manager-php.svg?style=flat-square)](https://github.com/kiwfy/jwt-manager-php/releases)
@@ -15,8 +16,21 @@ Requires [PHP](https://php.net) 7.1.
 The recommended way to install is through [Composer](https://getcomposer.org/).
 
 ```sh
-composer require kiwfy/jwt-manager-php
+composer require scaffoldeducation/jwt-manager-php
 ```
+### Migration
+
+To execute migration on a Laravel or Lumen system, you will need import JwtManagerServiceProvider in you application:
+
+**Lumen:**
+Open ```\bootstrap\app.php``` and add this line:
+```$app->register(JwtManager\JwtManagerServiceProvider::class);```
+
+You can custom blacklist table name at your .env file (```default: oauth_jwt_blacklist```):
+
+```OAUTH_TABLE_BLACKLIST=oauth_jwt_blacklist```
+
+Now execute on your terminal this command: ```php artisan migratre```
 
 ### Sample
 
