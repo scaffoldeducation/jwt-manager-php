@@ -60,11 +60,12 @@ class JwtManager
         string $subject,
         array $payload
     ): string {
+        $time = time();
         $payload = array_merge($payload, [
             'aud' => $audience,
-            'exp' => time() + $this->expire,
-            'iat' => time(),
-            'jti' => time() . uniqid(),
+            'exp' => $time + $this->expire,
+            'iat' => $time,
+            'jti' => $time . uniqid(),
             'iss' => $this->context,
             'sub' => $subject,
         ]);
@@ -209,7 +210,7 @@ class JwtManager
      * @return string
      */
     private function getTableName(): string {
-        return env('OAUTH_TABLE_BLACKLIST', "oauth_jwt_blacklist");
+        return env('OAUTH_TABLE_BLACKLIST', 'oauth_jwt_blacklist');
     }
 
     /**

@@ -27,7 +27,7 @@ class JwtManagerServiceProvider extends ServiceProvider
     {
         $this->loadMigrationsFrom(__DIR__.'/../database/migrations');
 
-     	$this->publishes([
+        $this->publishes([
             __DIR__.'/../database/migrations' => database_path('migrations'),
         ], 'jwtmanager-migrations');
     }

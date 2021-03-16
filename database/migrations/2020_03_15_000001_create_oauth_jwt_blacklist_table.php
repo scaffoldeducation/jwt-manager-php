@@ -14,7 +14,7 @@ class CreateOauthJwtBlacklistTable extends Migration
      */
     public function up()
     {
-        $tableName = env('OAUTH_TABLE_BLACKLIST', "oauth_jwt_blacklist");
+        $tableName = env('OAUTH_TABLE_BLACKLIST', 'oauth_jwt_blacklist');
         Schema::create($tableName, function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id')->index();
@@ -31,7 +31,7 @@ class CreateOauthJwtBlacklistTable extends Migration
      */
     public function down()
     {
-        $tableName = env('OAUTH_TABLE_BLACKLIST', "oauth_jwt_blacklist");
+        $tableName = env('OAUTH_TABLE_BLACKLIST', 'oauth_jwt_blacklist');
         Schema::dropIfExists($tableName);
     }
 
