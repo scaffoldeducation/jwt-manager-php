@@ -184,7 +184,6 @@ class JwtManager
     public function turnInvalid(
         string $token
     ): bool {
-
         if ($this->isValid($token)) {
 
             $payloadDecoded = $this->decodePayload($token);
@@ -203,7 +202,6 @@ class JwtManager
         }
 
         return true;
-
     }
 
     /**
@@ -211,9 +209,7 @@ class JwtManager
      * @return string
      */
     private function getTableName(): string {
-
         return env('OAUTH_TABLE_BLACKLIST', "oauth_jwt_blacklist");
-
     }
 
     /**
