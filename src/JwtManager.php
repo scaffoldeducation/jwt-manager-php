@@ -168,7 +168,7 @@ class JwtManager
             ->where('jti', $payloadDecoded['jti'])
             ->orderBy('id', 'DESC')
             ->first();
-        if( $hasBlacklist ) {
+        if ($hasBlacklist) {
             throw new Exception('Invalid JWT Token [3]', 401);
         }
 
@@ -185,7 +185,7 @@ class JwtManager
         string $token
     ): bool {
 
-        if( $this->isValid($token) ) {
+        if ($this->isValid($token)) {
 
             $payloadDecoded = $this->decodePayload($token);
 
@@ -196,7 +196,7 @@ class JwtManager
                 'created_at' => date('Y-m-d H:i:s')
             ]);
 
-            if( !$insert ) {
+            if (!$insert) {
                 throw new Exception('Error to invalid this token', 400);
             }
 
