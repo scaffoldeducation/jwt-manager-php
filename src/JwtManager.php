@@ -186,7 +186,6 @@ class JwtManager
         string $token
     ): bool {
         if ($this->isValid($token)) {
-
             $payloadDecoded = $this->decodePayload($token);
 
             $insert = app('db')->table($this->getTableName())->insert([
@@ -199,7 +198,6 @@ class JwtManager
             if (!$insert) {
                 throw new Exception('Error to invalid this token', 400);
             }
-
         }
 
         return true;
@@ -209,7 +207,8 @@ class JwtManager
      * return black list table name
      * @return string
      */
-    private function getTableName(): string {
+    private function getTableName(): string
+    {
         return env('OAUTH_TABLE_BLACKLIST', 'oauth_jwt_blacklist');
     }
 
