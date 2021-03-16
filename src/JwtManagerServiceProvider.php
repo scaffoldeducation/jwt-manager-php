@@ -31,5 +31,4 @@ class JwtManagerServiceProvider extends ServiceProvider
             __DIR__.'/../database/migrations' => database_path('migrations'),
         ], 'jwtmanager-migrations');
     }
-
 }
