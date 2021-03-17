@@ -48,3 +48,8 @@ echo PHP_EOL;
 $result = $jwtManager->tokenNeedToRefresh($tokenGenerated);
 echo 'Need to refresh token: '.$result;
 echo PHP_EOL;
+
+//Turn invalid a generated token
+$result = $jwtManager->turnInvalid($tokenGenerated);
+echo 'Token is invalid: '.$result;
+echo PHP_EOL;
