@@ -189,7 +189,7 @@ class JwtManager
             $payloadDecoded = $this->decodePayload($token);
 
             $insert = app('db')->table($this->getTableName())->insert([
-                'user_id' => $payloadDecoded['sub'],
+                'user_id' => isset($payloadDecoded['id']) && is_int($payloadDecoded['id']) ? $payloadDecoded['id'] : 0,
                 'jti' => $payloadDecoded['jti'],
                 'expires_at' => date('Y-m-d H:i:s', $payloadDecoded['exp']),
                 'created_at' => date('Y-m-d H:i:s')
