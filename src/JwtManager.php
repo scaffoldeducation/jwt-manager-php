@@ -60,10 +60,12 @@ class JwtManager
         string $subject,
         array $payload
     ): string {
+        $time = time();
         $payload = array_merge($payload, [
             'aud' => $audience,
-            'exp' => time() + $this->expire,
-            'iat' => time(),
+            'exp' => $time + $this->expire,
+            'iat' => $time,
+            'jti' => $time . uniqid(),
             'iss' => $this->context,
             'sub' => $subject,
         ]);
@@ -159,7 +161,55 @@ class JwtManager
         if ($part['signature'] !== $valid && $part['signature'] !== $valid.'=') {
             throw new Exception('Invalid JWT Token', 401);
         }
+
+        $payloadDecoded = $this->decodePayload($token);
+                
+        $hasBlacklist = app('db')->table($this->getTableName())
+            ->select('jti')
+            ->where('jti', $payloadDecoded['jti'])
+            ->orderBy('id', 'DESC')
+            ->first();
+        if ($hasBlacklist) {
+            throw new Exception('Invalid JWT Token [3]', 401);
+        }
+
         return true;
+    }
+
+    /**
+     * turn a valid token to invalid
+     * @param string $token
+     * @throws Exception
+     * @return bool
+     */
+    public function turnInvalid(
+        string $token
+    ): bool {
+        if ($this->isValid($token)) {
+            $payloadDecoded = $this->decodePayload($token);
+
+            $insert = app('db')->table($this->getTableName())->insert([
+                'user_id' => isset($payloadDecoded['id']) && is_int($payloadDecoded['id']) ? $payloadDecoded['id'] : 0,
+                'jti' => $payloadDecoded['jti'],
+                'expires_at' => date('Y-m-d H:i:s', $payloadDecoded['exp']),
+                'created_at' => date('Y-m-d H:i:s')
+            ]);
+
+            if (!$insert) {
+                throw new Exception('Error to invalid this token', 400);
+            }
+        }
+
+        return true;
+    }
+
+    /**
+     * return black list table name
+     * @return string
+     */
+    private function getTableName(): string
+    {
+        return env('OAUTH_TABLE_BLACKLIST', 'oauth_jwt_blacklist');
     }
 
     /**

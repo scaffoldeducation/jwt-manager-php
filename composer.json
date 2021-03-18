@@ -1,7 +1,7 @@
 {
     "name": "scaffoldeducation/jwt-manager-php",
     "description": "PHP library to manage JWT authentication",
-    "version": "1.1.0",
+    "version": "1.2.0",
     "type": "library",
     "license": "GPL-3.0-only",
     "require": {
@@ -22,6 +22,13 @@
     "autoload": {
         "psr-4": {
             "JwtManager\\": "src/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "JwtManager\\JwtManagerServiceProvider"
+            ]
         }
     },
     "scripts": {

@@ -85,6 +85,33 @@ class JwtManagerTest extends TestCase
         $this->assertIsBool($valid);
         $this->assertTrue($valid);
     }
+    
+    /**
+     * @covers JwtManager\JwtManager::isValid
+     * @covers JwtManager\JwtManager::splitParts
+     * @covers JwtManager\JwtManager::getSignature
+     * @covers JwtManager\JwtManager::base64UrlEncode
+     * @covers JwtManager\JwtManager::turnInvalid
+     */
+    public function testTurnInvalid()
+    {
+        $JwtManager = new JwtManager(
+            $this->appSecret,
+            $this->context
+        );
+
+        $token = $JwtManager->generate('token', '68162dc1-a392-491f-9d46-639f0e0f179d');
+
+        $JwtManager = new JwtManager(
+            $this->appSecret,
+            $this->context
+        );
+
+        $turnInvalid = $JwtManager->turnInvalidd($token);
+
+        $this->assertIsBool($turnInvalid);
+        $this->assertTrue($turnInvalid);
+    }
 
     /**
      * @covers JwtManager\JwtManager::isValid
